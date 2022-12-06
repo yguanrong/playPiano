@@ -1,14 +1,15 @@
 package cn.jianwoo.play;
 
+import cn.hutool.core.io.FileUtil;
+
 /**
- * @author gulihua
- * @Description
- * @date 2022-11-15 00:58
+ * 打印音符
  */
 public class Animation extends Thread{
 
     /** 音符 */
     private String[] notes;
+
     /** 间隔时间（单位：毫秒） */
     private int times;
 
@@ -16,29 +17,15 @@ public class Animation extends Thread{
         this.times = times;
     }
 
-    public Animation(String[] notes, int times) {
-        this.notes = notes;
-        this.times = times;
-    }
-
-    public String[] getNotes() {
-        return this.notes;
-    }
-
-    public void setNotes(String[] notes) {
-        this.notes = notes;
-    }
-
-    public int getTimes() {
-        return this.times;
-    }
-
-    public void setTimes(int times) {
+    public Animation(String filePath, int times)
+    {
+        String content = FileUtil.readString(filePath,"UTF-8");
+        this.notes = content.split(",");
         this.times = times;
     }
 
     public Animation loadNotes(String notes) {
-        this.notes = notes.split(" ");
+        this.notes = notes.split(",");
         return this;
     }
 
@@ -48,45 +35,41 @@ public class Animation extends Thread{
             int times = this.times;
             new Audio("audio/test.mp3").start();
             sleep(1000);
-            int no = 1;
-//            System.out.print(no+": ");
             for (int i = 0; i < this.notes.length; i++)
             {
-                if (notes[i].length()<1){
-                    continue;
-                }
                 String n = this.notes[i].replace("+","").replace("-","");
                 if (n.equals("\n")||n.equals("\r")){
                     System.out.print("\n");
-                    no++;
-//                    System.out.print(no+": ");
                     continue;
+                }
+                if(i%16 == 0){
+                    System.out.print("\n");
                 }
                 switch (n)
                 {
                     case "0":
-                        System.out.print("_");
+                        System.out.print("\t_");
                         break;
                     case "1":
-                        System.out.print("▁");
+                        System.out.print("\t▁");
                         break;
                     case "2":
-                        System.out.print("▂");
+                        System.out.print("\t▂");
                         break;
                     case "3":
-                        System.out.print("▃");
+                        System.out.print("\t▃");
                         break;
                     case "4":
-                        System.out.print("▄");
+                        System.out.print("\t▄");
                         break;
                     case "5":
-                        System.out.print("▅");
+                        System.out.print("\t▅");
                         break;
                     case "6":
-                        System.out.print("▆");
+                        System.out.print("\t▆");
                         break;
                     case "7":
-                        System.out.print("▇");
+                        System.out.print("\t▇");
                         break;
                 }
                 System.out.print(" ");

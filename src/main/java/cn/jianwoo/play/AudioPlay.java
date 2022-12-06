@@ -3,9 +3,7 @@ package cn.jianwoo.play;
 import cn.hutool.core.io.FileUtil;
 
 /**
- * @author gulihua
- * @Description
- * @date 2022-11-12 18:24
+ * 播放音乐
  */
 public class AudioPlay extends Thread
 {
@@ -33,7 +31,7 @@ public class AudioPlay extends Thread
     public AudioPlay(String filePath, int times)
     {
         String content = FileUtil.readString(filePath,"UTF-8");
-        this.notes = content.split(" ");
+        this.notes = content.split(",");
         this.times = times;
     }
 
@@ -66,7 +64,7 @@ public class AudioPlay extends Thread
     }
     public AudioPlay loadNotes(String notes)
     {
-        this.notes = notes.split(" ");
+        this.notes = notes.split(",");
         return this;
     }
 
