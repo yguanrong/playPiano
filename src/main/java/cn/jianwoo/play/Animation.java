@@ -19,7 +19,7 @@ public class Animation extends Thread{
 
     public Animation(String filePath, int times)
     {
-        String content = FileUtil.readString(filePath,"UTF-8");
+        String content = FileUtil.readString(filePath,"UTF-8").replaceAll("\\s*|\r|\n|\t","");
         this.notes = content.split(",");
         this.times = times;
     }
@@ -38,10 +38,7 @@ public class Animation extends Thread{
             for (int i = 0; i < this.notes.length; i++)
             {
                 String n = this.notes[i].replace("+","").replace("-","");
-                if (n.equals("\n")||n.equals("\r")){
-                    System.out.print("\n");
-                    continue;
-                }
+
                 if(i%16 == 0){
                     System.out.print("\n");
                 }

@@ -30,7 +30,7 @@ public class AudioPlay extends Thread
 
     public AudioPlay(String filePath, int times)
     {
-        String content = FileUtil.readString(filePath,"UTF-8");
+        String content = FileUtil.readString(filePath,"UTF-8").replaceAll("\\s*|\r|\n|\t","");
         this.notes = content.split(",");
         this.times = times;
     }

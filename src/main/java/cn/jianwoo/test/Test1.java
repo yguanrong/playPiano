@@ -13,13 +13,14 @@ public class Test1 {
     public static void main(String[] args) {
         String path = new File("").getAbsolutePath() + File.separator + "src/main/resources/notes" + File.separator;
 
-        String accompanimentPath = path + "起风了_180.accompaniments";
+        String accompanimentPath = path + "起风了_180.accomp";
         String notePath = path + "起风了_180.notes";
 
+        String tianKongAccomPath = path + "天空之城_240.accomp";
         String tianKongPath = path + "天空之城_240.notes";
 
-        new AudioPlay(tianKongPath,240).start();
-//        new AudioPlay(accompanimentPath,180).start();
-//        new Animation(notePath,180).start();
+        new AudioPlay(tianKongPath,300).start();
+        new AudioPlay(tianKongAccomPath,300).start();
+        new Animation(tianKongPath,300).start();
     }
 }
