@@ -5,8 +5,7 @@ import cn.hutool.core.io.FileUtil;
 /**
  * 播放音乐
  */
-public class AudioPlay extends Thread
-{
+public class AudioPlay extends Thread {
     /** 音符 */
     private String[] notes;
     /** 间隔时间（单位：毫秒） */

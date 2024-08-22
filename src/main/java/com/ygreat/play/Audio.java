@@ -1,45 +1,32 @@
 package com.ygreat.play;
 
-import java.io.InputStream;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import cn.hutool.core.io.resource.ResourceUtil;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import lombok.extern.slf4j.Slf4j;
 
-public class Audio
-{
-    private static InputStream is;
+import java.io.InputStream;
+
+@Slf4j
+public class Audio extends Thread{
+
     private Player player;
-    ExecutorService service = Executors.newCachedThreadPool();
 
-    public Audio(String path)
-    {
-        is = ResourceUtil.getStream(path);
-        try
-        {
+    public Audio(String path) {
+        InputStream is = Audio.class.getClassLoader().getResourceAsStream(path);
+        try {
+            assert is != null;
             player = new Player(is);
-        }
-        catch (JavaLayerException e)
-        {
-            e.printStackTrace();
+        } catch (JavaLayerException e) {
+            log.error("获取流失败：{}", path, e);
         }
     }
 
-
-    public void start()
-    {
-        service.submit(() -> {
-            try
-            {
-                player.play();
-            }
-            catch (JavaLayerException e)
-            {
-
-            }
-        });
-
+    @Override
+    public void run() {
+        try {
+            player.play();
+        } catch (JavaLayerException e) {
+            log.error("播放失败：{}", e.getMessage());
+        }
     }
 }
